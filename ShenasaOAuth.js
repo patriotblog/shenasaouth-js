@@ -20,7 +20,7 @@ function ShenasaCheckSuccess(){
 	}
 }
 function ShenasaValidateToken(){
-	uri = SHENASA_API+"/oauth2/tokeninfo?client_secret="+shenasa_client_secret+"&access_token="+shenasa_access_token;
+	uri = SHENASA_API+"oauth2/tokeninfo?client_secret="+shenasa_client_secret+"&access_token="+shenasa_access_token;
 	SSOAJAX(uri, "GET", 'ShenasaValidateTokenRespons');
 }
 function ShenasaValidateTokenRespons(res){
@@ -31,7 +31,7 @@ function ShenasaValidateTokenRespons(res){
 	}
 }
 function ShenasaGetuserInfo(){
-	uri = SHENASA_API+"/oauth2/userinfo?access_token="+shenasa_access_token;
+	uri = SHENASA_API+"oauth2/userinfo?access_token="+shenasa_access_token;
 	SSOAJAX(uri, "GET", 'ShenasaValidateuserData');
 }
 function ShenasaValidateuserData(data){
