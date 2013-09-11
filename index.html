@@ -3,13 +3,70 @@
 	<head>
 		<meta charset='utf-8'>
 		<script src="ShenasaOAuth.js" type="text/javascript"></script>
-	</head>
-	<body>
 		<script type="text/javascript">
 			var shenasa_client_id='396307863090.apps.atlasid.local';
 			var shenasa_client_secret='$2a$24$a7CexNfN.yVZR1pMJN/Bsc';
-			var shenasa_redirect_uri='local.me/index.html';
+			var shenasa_redirect_uri='http://local.me/index.html';
+			
+			var shenasa_afterlogin_function = function(data){
+				// this function run when user loged into Shenasa
+				setCookie('js_user_email', data.email, 1);
+				check_login();
+			}
+			function logout(){
+				setCookie('js_user_email', '', -1);
+				check_login();
+			}
 		</script>
-		<input type="button" value="Login" onClick="ShenasaLoginAction()">
+		
+	</head>
+	<body>
+	
+		
+		<input type="button" id="login_btn" value="Login" onClick="ShenasaLoginAction()">
+		<input type="button" id="logout_btn" value="Logout" onClick="logout()">
+		
+		
+		<script type="text/javascript">
+			// some helper scripts 
+			function setCookie(c_name,value,exdays)
+			{
+				var exdate=new Date();
+				exdate.setDate(exdate.getDate() + exdays);
+				var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+				document.cookie=c_name + "=" + c_value;
+			}
+			function getCookie(c_name)
+			{
+				var c_value = document.cookie;
+				var c_start = c_value.indexOf(" " + c_name + "=");
+				if (c_start == -1){
+					c_start = c_value.indexOf(c_name + "=");
+				}
+				if (c_start == -1){
+					c_value = null;
+				}else{
+					c_start = c_value.indexOf("=", c_start) + 1;
+					var c_end = c_value.indexOf(";", c_start);
+					if (c_end == -1){
+						c_end = c_value.length;
+					}
+					c_value = unescape(c_value.substring(c_start,c_end));
+				}
+				return c_value;
+			}
+			function check_login(){
+				c = getCookie('js_user_email');
+				if(c){
+					document.getElementById("login_btn").style.display="none";
+					document.getElementById("logout_btn").style.display="block";
+					document.getElementById("logout_btn").value=c+" (logout)";
+				}else{
+					document.getElementById("logout_btn").style.display="none";
+					document.getElementById("login_btn").style.display="block";
+				}
+			}
+			check_login();
+		</script>
 	</body>
 </html>
