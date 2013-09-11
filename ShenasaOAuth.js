@@ -1,5 +1,5 @@
-var SHENASA_ADDR = 'http://accounts.shenasaservice.me/';
-var SHENASA_API = 'http://api.shenasaservice.me/';
+var SHENASA_ADDR = 'https://accounts.shenasaservice.com/';
+var SHENASA_API = 'https://api.shenasaservice.com/';
 var sso_window;
 var shenasa_access_token;
 function ShenasaLoginAction(){
